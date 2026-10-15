@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlockFit | Complete Project Guide</title>
+<style>
+:root{--ink:#18251f;--muted:#56645d;--green:#1f604b;--mint:#e9f2ec;--lime:#d8e99a;--paper:#fffefa;--line:#d9dfd7;--amber:#78511b;--amber-bg:#fbf3df;--red:#8a3833;--red-bg:#faece9}
+*{box-sizing:border-box}html{background:#e7eae5}body{max-width:900px;margin:32px auto;padding:60px 72px;background:var(--paper);color:var(--ink);font:15px/1.62 "Segoe UI",Arial,sans-serif;box-shadow:0 12px 40px #16271a18}h1,h2,h3{line-height:1.18;color:var(--ink)}h1{font-size:42px;letter-spacing:-1.2px;margin:8px 0 14px}h2{font-size:25px;margin:36px 0 12px;padding-top:15px;border-top:2px solid var(--line)}h3{font-size:18px;margin:23px 0 8px}p{margin:8px 0 12px}a{color:var(--green);text-decoration:none}ul,ol{padding-left:23px;margin:8px 0 16px}li{margin:5px 0}.cover{min-height:690px;display:flex;flex-direction:column;justify-content:space-between;padding:24px 0 42px;border-bottom:2px solid var(--line)}.brand{color:var(--green);font-size:12px;font-weight:800;letter-spacing:3px;text-transform:uppercase}.cover h1{font-size:58px;max-width:600px}.subtitle{font-size:21px;color:var(--muted);max-width:580px}.cover-meta{border-top:1px solid var(--line);padding-top:15px;color:var(--muted);font-size:13px}.eyebrow{color:var(--green);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.lede{font-size:19px;line-height:1.55;max-width:720px}.note,.warning,.risk{padding:13px 16px;margin:15px 0;border-left:4px solid var(--green);background:var(--mint)}.warning{border-color:#bf8d35;background:var(--amber-bg)}.risk{border-color:var(--red);background:var(--red-bg)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.box{border:1px solid var(--line);padding:14px 16px;background:white;break-inside:avoid}.box h3{margin-top:0}.table-wrap{overflow:visible}table{width:100%;border-collapse:collapse;margin:13px 0 20px;font-size:13px;break-inside:auto}thead{display:table-header-group}tr{break-inside:avoid}th,td{padding:9px 10px;text-align:left;vertical-align:top;border:1px solid var(--line)}th{background:var(--mint);color:var(--ink)}code,pre{font-family:Consolas,"Courier New",monospace}code{font-size:.92em;color:#234839;background:#eff2ed;padding:1px 4px}pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:14px 16px;background:#17241e;color:#edf4e9;border-radius:4px;font-size:12px;line-height:1.5;break-inside:avoid}.small{font-size:12px;color:var(--muted)}.toc{columns:2;padding-left:20px}.toc li{margin:4px 0}.flow{padding:14px;background:#f1f5ef;border:1px solid var(--line);font:13px/1.8 Consolas,monospace;white-space:pre-wrap}.footer{margin-top:40px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}.page-break{break-before:page}
+@media print{html{background:white}body{max-width:none;margin:0;padding:0;box-shadow:none;font-size:11pt}.cover{height:9.2in;min-height:0;page-break-after:always}.cover h1{font-size:40pt}h2{break-after:avoid;margin-top:25px}h3{break-after:avoid}table{font-size:9.5pt}.box,.note,.warning,.risk{break-inside:avoid}a{color:inherit}.footer{position:static}@page{size:letter;margin:0.68in}}
+@media(max-width:700px){body{margin:0;padding:24px}.cover{min-height:85vh}.cover h1{font-size:42px}.grid{grid-template-columns:1fr}.toc{columns:1}}
+</style>
+</head>
+<body>
+<section class="cover">
+  <div><div class="brand">BlockFit / Project Field Guide</div><p class="eyebrow" style="margin-top:70px">Product, architecture, implementation &amp; readiness</p><h1>Build BlockFit with the whole picture.</h1><p class="subtitle">A practical guide to what the app is, what the repository contains, what works today, what is not ready yet, and how to move it toward a trustworthy consumer product.</p></div>
+  <div><p class="lede"><strong>Positioning:</strong> An AI-powered movement, fitness and rehabilitation companion.</p><div class="cover-meta">Repository: <code>BlockFit_Enhanced</code><br>Prepared: October 5, 2026<br>Scope: Current repository and documented product direction</div></div>
+</section>
+
+<section>
+<h2>How to use this guide</h2>
+<p>This is a comprehensive project orientation, not a line-by-line copy of the source code. It explains the important product decisions, runtime paths, feature boundaries, operational commands, known risks, and recommended work order. Treat code and tests as the final authority where older documents disagree.</p>
+<div class="warning"><strong>Important:</strong> The repository contains both implemented product functionality and planned/demo concepts. This guide labels the difference. Do not present a UI label, design mock, historical audit, or client-submitted score as proof that a capability is validated or production-ready.</div>
+<ol class="toc">
+<li><a href="#executive">Executive summary</a></li><li><a href="#product">Product and users</a></li><li><a href="#status">What works today</a></li><li><a href="#architecture">Architecture</a></li><li><a href="#frontend">Web and mobile code map</a></li><li><a href="#ai">Pose and movement pipeline</a></li><li><a href="#backend">Backend and data</a></li><li><a href="#security">Privacy, consent, safety</a></li><li><a href="#setup">Run and test</a></li><li><a href="#deploy">Deploy and Android</a></li><li><a href="#risks">Known gaps and risks</a></li><li><a href="#roadmap">Recommended next steps</a></li><li><a href="#glossary">Glossary and key files</a></li>
+</ol>
+</section>
+
+<section id="executive">
+<h2>1. Executive summary</h2>
+<p class="lede">BlockFit is an existing full-stack MVP, not a blank-slate project. It already has a browser app, Express API, account flows, camera-based fitness analysis, workout persistence paths, progress views, and a Capacitor Android build path.</p>
+<div class="grid">
+<div class="box"><h3>Keep</h3><p>Working authentication, workout APIs, the MediaPipe wrapper, exercise analyzers, shared exercise catalog, consent-enforced clinician API, regression tests, and the existing web/Android architecture.</p></div>
+<div class="box"><h3>Be honest about</h3><p>Movement quality is rules-based and not clinically validated. Only five listed exercises are camera-analyzable. Rehab is a labeled sample, and several profile values are static placeholders.</p></div>
+<div class="box"><h3>Product boundary</h3><p>Support movement awareness, exercise feedback, and progress review. Do not diagnose, prescribe treatment, or claim to replace qualified physiotherapy.</p></div>
+<div class="box"><h3>Architecture goal</h3><p>Keep pose analysis on-device, persist only necessary structured results, require explicit consent for clinician sharing, and build production operations around verified user flows.</p></div>
+</div>
+</section>
+
+<section id="product">
+<h2>2. Product and users</h2>
+<h3>Product statement</h3><p>BlockFit helps people observe exercise movement, receive immediate rule-based feedback, save workout summaries, and review progress. Its two primary modes are <strong>Fitness</strong> and <strong>Physiotherapy / Rehabilitation</strong>.</p>
+<h3>Initial market and trust</h3><p>The initial target market is India. Privacy, clear consent, account deletion, accessible camera controls, honest claims, and region-appropriate legal review are product requirements, not polish. Privacy documentation mentions the DPDP Act 2023 and says the policy requires qualified legal review.</p>
+<h3>Users</h3><ul><li><strong>Consumers / athletes:</strong> start sessions, get basic exercise feedback, save results, inspect history, manage an account.</li><li><strong>People following a rehab plan:</strong> see a clearly non-prescriptive demo today; future prescribed plans need qualified clinical oversight and validated measurement.</li><li><strong>Physiotherapists:</strong> backend clinician connection and consent controls exist; a complete clinician-facing workflow is not yet a finished user product.</li></ul>
+<h3>Product rules</h3><ul><li>No public blockchain or token feature as a core product capability. Internal cryptographic integrity may support auditability.</li><li>No claims of medical approval, clinical proof, injury diagnosis, or replacement of a physiotherapist.</li><li>Do not imply that a high score is proof of correct biomechanics or a treatment outcome.</li><li>Do not call deterministic exercise rules a trained BlockFit AI model.</li></ul>
+</section>
+
+<section id="status">
+<h2>3. What works today versus what is pending</h2>
+<div class="table-wrap"><table><thead><tr><th>Area</th><th>Current state</th><th>Safe description</th></tr></thead><tbody>
+<tr><td>Accounts</td><td>Register/login, password reset routes, session handling, profile retrieval/deletion are present.</td><td>Account functionality exists; production email and deployment configuration still matter.</td></tr>
+<tr><td>Fitness camera session</td><td>MediaPipe landmarks feed five exercise-specific analyzers; reps and form feedback are shown.</td><td>Camera-based exercise feedback for listed supported exercises.</td></tr>
+<tr><td>Exercise catalog</td><td>Squat, push-up, lunge, bicep curl, plank are marked available. Straight-leg raise, knee extension, shoulder raise are pending.</td><td>Five currently enabled movement analyzers; catalog count is not the same as implemented analysis.</td></tr>
+<tr><td>Workout history</td><td>API save/list flow, dashboard and history surfaces exist.</td><td>Structured session summaries and user history.</td></tr>
+<tr><td>Rehabilitation</td><td>Sample knee recovery plan is explicitly a demo, not a prescription. Rehab-specific analyzers are disabled.</td><td>Rehab concept and sample UI only; not a validated camera rehab program.</td></tr>
+<tr><td>ROM / asymmetry</td><td>ROM route/utilities and architecture references exist, but the rehab UI says those measures are not yet measured.</td><td>Do not claim usable ROM or asymmetry tracking until end-to-end measurement and validation are verified.</td></tr>
+<tr><td>Clinician access</td><td>Invite, claim, approval, revoke, connections, and server-side approval check for patient summary are present.</td><td>Consent-enforcement foundation exists; verify UI, authorization and lifecycle end to end.</td></tr>
+<tr><td>Public verification</td><td>Verification endpoints and a public session summary page exist.</td><td>A shareable session summary; not independent validation of movement accuracy.</td></tr>
+<tr><td>Android</td><td>Capacitor wrapper and Gradle project exist.</td><td>Build path exists; needs configured public API and physical-device validation.</td></tr>
+<tr><td>Profile metrics/settings</td><td>The current profile design includes hard-coded score, streak, goal, level, and account setting labels.</td><td>Visual placeholders only until driven by real account/session data; do not represent them as actual user state.</td></tr>
+</tbody></table></div>
+<p>The eight-entry catalog and demo schedule live in <code>shared/exerciseCatalog.mjs</code>. The sample schedule includes <code>supported-squat</code> and <code>heel-raise</code>, which are not among the eight catalog entries; this reinforces that it is illustrative, not executable prescription.</p>
+</section>
+
+<section id="architecture">
+<h2>4. Architecture at a glance</h2>
+<div class="flow">Browser / Capacitor WebView
+  UI routes, auth session, camera permission
+       |
+       +-- Camera frames --> MediaPipe Pose Landmarker (on device)
+       |                       --> confidence / landmark checks
+       |                       --> exercise analyzer rules
+       |                       --> reps, feedback, derived summary
+       |
+       +-- HTTPS / same-origin /api --> Express API
+                                         --> auth + authorization
+                                         --> workout / user / clinician / ROM / verification routes
+                                         --> PostgreSQL in production
+                                         --> in-memory store for development/tests</div>
+<p>Frontend and API are separated by an HTTP API boundary. The Android app packages the shared web UI using Capacitor and talks to the public API. Camera video is not part of a normal workout record; the architecture intends to save derived movement summaries instead.</p>
+<h3>Top-level folders</h3><ul><li><code>web/</code> browser SPA, active pose/exercise pipeline, and Vite build.</li><li><code>backend/</code> Express API, environment setup, persistence adapter, SQL schema and tests.</li><li><code>mobile/</code> Capacitor config and native Android Gradle project.</li><li><code>shared/</code> exercise catalog and shared domain definitions.</li><li><code>benchmark/</code> movement evaluation protocol and test harness.</li><li><code>docs/</code> architecture, safety, privacy, product and release guidance, including the repository reference map.</li></ul>
+</section>
+
+<section id="frontend">
+<h2>5. Web app and mobile code map</h2>
+<ul>
+<li><code>web/src/main.js</code> boots the browser application.</li>
+<li><code>web/src/app.js</code> owns hash routing, authenticated route gates, shell/navigation, logout, and page mount/unmount behavior.</li>
+<li><code>web/src/pages/landing.js</code>, <code>login.js</code>, <code>register.js</code> cover public entry and account flows.</li>
+<li><code>web/src/pages/dashboard.js</code>, <code>workout.js</code>, <code>history.js</code>, <code>rehabilitation.js</code>, <code>profile.js</code> cover core app surfaces.</li>
+<li><code>web/src/pages/verify.js</code> displays the public session summary.</li>
+<li><code>web/src/pose/</code> wraps detection, movement confidence and geometry; <code>web/src/exercises/</code> holds exercise-specific analyzers; <code>web/src/ui/overlay.js</code> draws the skeleton overlay.</li>
+<li><code>web/src/api.js</code>, <code>auth.js</code>, <code>analytics.js</code>, <code>coach.js</code> coordinate API access, session details, events and post-session feedback.</li>
+<li><code>web/src/style.css</code> contains shared tokens, layout, responsive styling, animation and route-specific presentation.</li>
+<li><code>mobile/build-apk.mjs</code> builds web assets, syncs Capacitor and assembles the Android APK.</li>
+</ul>
+<p>Recent profile styling has hard-coded sample metric values and setting labels. Treat them as temporary display content, not backed settings. User-controlled text should be HTML-escaped or inserted using safe text APIs.</p>
+</section>
+
+<section id="ai">
+<h2>6. Pose and movement analysis</h2>
+<h3>Current session sequence</h3><ol><li>User selects an enabled exercise and grants camera permission.</li><li>The app requests a fresh workout nonce from the authenticated API.</li><li>The MediaPipe pose landmarker loads and camera frames are read locally.</li><li>Pose confidence checks can request repositioning when landmarks are not reliable.</li><li>The selected analyzer updates movement phase, repetition count, live issues and completed-rep scores.</li><li>The overlay and coaching UI show movement cues, counts and a summary.</li><li>On finish, the client posts a structured summary to the API using the nonce; it may register a public verification summary separately.</li></ol>
+<h3>What the score means</h3><p>It is an output of current deterministic rules and camera landmark estimates. It can vary with camera placement, visibility, lighting, occlusion, device performance, body proportions and movement style. It is not a diagnosis, validated clinical measurement, or guarantee that an exercise is safe.</p>
+<h3>Important trust limitation</h3><div class="risk">The server validates workout fields and consumes a one-time nonce, but the submitted reps, scores, confidence and verification status originate in the client. A nonce helps prevent replay; it does not prove that the client’s camera analysis was accurate or untampered. Treat public verification as a summary of submitted data, not clinical or cryptographic proof of exercise quality.</div>
+<h3>ML status</h3><p>MediaPipe is the pose perception dependency. Exercise phase/repetition/form logic is rule-based. Future temporal models (such as TCN, GRU/LSTM or Transformer) are architecture possibilities only; no trained BlockFit model should be claimed.</p>
+</section>
+
+<section id="backend">
+<h2>7. Backend, API and data</h2>
+<h3>Backend modules</h3><ul><li><code>backend/src/app.js</code>: Express composition, Helmet, CORS allow-list, JSON parsing, logging, API rate limit, health endpoint, route mounts, optional static web serving.</li><li><code>backend/src/server.js</code>: server startup and port binding.</li><li><code>backend/src/config/env.js</code>: dotenv loading, CORS origins, secrets, database/mail config and production secret checks.</li><li><code>backend/src/lib/auth.js</code>, <code>middleware/auth.js</code>: password/token helpers and protected route authentication.</li><li><code>backend/src/lib/dataStore.js</code>, <code>lib/store.js</code>: persistence interfaces and runtime storage selection.</li><li><code>backend/src/db/schema.sql</code>: relational schema baseline.</li><li><code>backend/src/routes/</code>: auth, users, workouts, ROM, verification, analytics and clinicians.</li></ul>
+<h3>Route groups</h3><p>Core endpoints are mounted below <code>/api</code>: <code>/auth</code>, <code>/users</code>, <code>/workouts</code>, <code>/rom</code>, <code>/verification</code>, <code>/analytics</code>, and <code>/clinicians</code>. Workout routes include authenticated nonce issuance, workout listing and workout creation. Clinician summaries require server-side approved access.</p>
+<h3>Persistence modes</h3><ul><li>With <code>DATABASE_URL</code>, production is intended to use PostgreSQL.</li><li>Without it, development/test mode uses in-memory storage; data disappears when the server restarts.</li><li>Test persistence behavior deliberately. Do not confuse a passing in-memory test with proof that the deployed database, migrations, backups, and restore path are production ready.</li></ul>
+<h3>Configuration</h3><ul><li><code>JWT_SECRET</code> and <code>INTEGRITY_HMAC_SECRET</code> are required in production; the code fails startup if absent.</li><li><code>DATABASE_URL</code> points at PostgreSQL. <code>PORT</code>, <code>NODE_ENV</code>, and <code>CLIENT_ORIGIN</code> configure runtime and CORS.</li><li>Password-reset email needs SMTP host/port/security/user/password/from plus <code>CLIENT_APP_URL</code>.</li><li><code>CLINICIAN_ADMIN_SECRET</code> is an optional configured secret for admin-related clinician operations; keep all secrets server-side.</li></ul>
+</section>
+
+<section id="security">
+<h2>8. Privacy, consent and safety</h2>
+<h3>Existing safeguards</h3><ul><li>JWT-protected API routes and password hashing.</li><li>Helmet, CORS allow-list, request rate limiting, input validation, and a 1 MB JSON request limit.</li><li>Patient-controlled clinician invite/approval/revoke workflow with server-side access authorization.</li><li>Account deletion and verification revocation flows.</li><li>Internal SHA-256/HMAC integrity helpers; no public blockchain feature required.</li></ul>
+<h3>Privacy promises require code verification</h3><p>Current architecture and privacy documents say raw camera video is not uploaded/stored by default, with derived summaries persisted. The privacy policy also describes optional quantized pose-landmark storage and retention. Confirm the actual enabled routes, consent UI, storage schema, expiry job, deletion behavior, and deployment configuration before making a public data-handling promise.</p>
+<h3>Safety boundary</h3><ul><li>Users need clear camera permissions, camera placement guidance, and low-confidence/reposition states.</li><li>Stop, pause and discomfort pathways matter especially in rehabilitation.</li><li>Never automatically change clinician-assigned treatment targets without an approved clinical process.</li><li>Rehab plans and measurement claims need qualified clinical review and validation.</li><li>Privacy policy still identifies a placeholder support contact and requires counsel review before public launch.</li></ul>
+<p>Read <code>docs/SAFETY.md</code>, <code>docs/PRIVACY_POLICY.md</code>, and <code>docs/PHYSIOTHERAPY_MODE.md</code> together. If their promises differ from code, resolve the mismatch before release.</p>
+</section>
+
+<section id="setup">
+<h2>9. Local setup, commands and test strategy</h2>
+<h3>Requirements</h3><p>Use a supported Node.js version (README specifies Node 20+ for Android; use a current supported LTS for development), npm, and a browser with camera access. Android builds additionally need JDK 21 and Android SDK tooling.</p>
+<h3>Install dependencies</h3><pre>npm ci --prefix backend
+npm ci --prefix web</pre>
+<h3>Run in development</h3><p>Open two terminals at the repository root:</p><pre>npm run dev:api
+npm run dev:web</pre><p>Visit <code>http://localhost:5173</code>. Vite proxies <code>/api</code> to the local backend on port 4000. On Windows, <code>start.bat</code> launches both services.</p>
+<h3>Run tests and build</h3><pre>node --test backend/test/*.test.js
+npm run benchmark:test
+npm run build:web</pre><p>The backend tests include API smoke, movement assessment, persistence, privacy, verification and workout flows. Benchmark evaluation files live in <code>benchmark/</code>; review <code>benchmark/PROTOCOL.md</code> for what the benchmark does and does not establish.</p>
+<h3>Verification discipline</h3><ul><li>Run the narrow test for a changed feature first, then the relevant suite and build.</li><li>Check authenticated, unauthenticated, empty, error, deletion and revoke states, not only happy paths.</li><li>For camera work, test real devices/camera angles and measure false counts, missed reps, confidence failures and score variance.</li><li>For privacy changes, validate the backend authorization boundary and data lifecycle, not only frontend visibility.</li></ul>
+</section>
+
+<section id="deploy">
+<h2>10. Deployment and Android APK</h2>
+<h3>Web/API deployment</h3><p><code>render.yaml</code> configures a Render Blueprint with the web app, API and PostgreSQL service. Deploying requires the owner’s Render account; repository configuration alone does not publish the app. Production must set strong JWT and integrity secrets, database URL, allowed client origin, and any email settings needed by enabled auth flows.</p>
+<p>The project can serve the Vite production build and API from one origin: <code>npm run build</code>, then <code>npm start</code>, then open <code>http://localhost:4000</code>. For local persistence, configure PostgreSQL; without it, development data is in memory.</p>
+<h3>Android</h3><ol><li>Deploy the API and obtain its public HTTPS URL.</li><li>Copy <code>mobile/api-config.example.json</code> to <code>mobile/api-config.json</code> and set the API URL ending in <code>/api</code>.</li><li>Install dependencies: <code>npm ci --prefix mobile</code>.</li><li>Build: <code>npm run apk:build</code>.</li><li>Test camera permission, API connectivity, lifecycle/background behavior, performance, network failures and account flows on physical Android devices.</li></ol>
+<p>APK output is documented as <code>mobile/android/app/build/outputs/apk/debug/app-debug.apk</code>. The public API address is embedded at build time; rebuild if it changes. Do not commit private API credentials or production secrets.</p>
+</section>
+
+<section id="risks">
+<h2>11. Known gaps and risks to manage</h2>
+<ol>
+<li><strong>Profile data is currently illustrative:</strong> score, streak, goal, level and several account settings are hard-coded in the profile page. Replace with real fields or transparent unavailable states.</li>
+<li><strong>Client-supplied workout metrics:</strong> nonce consumption is not an independent validation mechanism. Confidence and verification status must not be treated as proof.</li>
+<li><strong>Rehabilitation readiness:</strong> three rehab analyzers are pending, the sample plan is non-prescriptive, and measured ROM/asymmetry are not yet shown as available.</li>
+<li><strong>Clinical and legal review:</strong> safety claims, rehab content, privacy and India-specific launch compliance need qualified review.</li>
+<li><strong>Camera/model delivery:</strong> pose model assets are loaded via a CDN according to the architecture/audit notes. Confirm offline behavior, caching, availability, licensing, and Android reliability.</li>
+<li><strong>Production operations:</strong> validate database migrations, backups, restore, monitoring, incident response, email delivery, secret rotation, and deletion workflows.</li>
+<li><strong>Public verification semantics:</strong> explain exactly what a shared record proves; it should not imply that a server observed or clinically validated the movement.</li>
+<li><strong>Documentation drift:</strong> the V2 audit is explicitly historical. Reconcile old blockchain/prototype language against current docs and actual code.</li>
+<li><strong>Profile output encoding:</strong> user-provided name/email should be safely rendered in HTML. Favor text APIs or escaping at every dynamic insertion point.</li>
+</ol>
+<div class="warning"><strong>Release rule:</strong> A polished interface is not evidence that a feature is real. Every consumer-visible metric, privacy promise, clinical claim and status label needs a data source, tested behavior and owner.</div>
+</section>
+
+<section id="roadmap">
+<h2>12. Recommended implementation order</h2>
+<ol>
+<li><strong>Truthful UI and data:</strong> remove/replace static profile metrics; audit every screen for demo claims, disabled actions, empty states and accessibility.</li>
+<li><strong>Movement quality:</strong> build repeatable benchmark data and confidence handling for the five supported fitness movements; document camera setup and known failure modes.</li>
+<li><strong>Security and integrity model:</strong> define the meaning of nonce, client scores, server validation, verification records and audit events. Avoid calling client-generated summaries tamper-proof.</li>
+<li><strong>Production readiness:</strong> exercise PostgreSQL-backed flows, migration and backup/restore, account deletion, email reset, monitoring and incident procedures.</li>
+<li><strong>Rehabilitation vertical:</strong> work with qualified physiotherapy reviewers to define one scoped use case, safety/stop behavior, valid camera view, measurement reliability and consent before enabling rehab analyzers.</li>
+<li><strong>Clinician workflow:</strong> build a complete, least-privilege UI on top of the existing approval/revoke API and test every access transition.</li>
+<li><strong>Android quality:</strong> test supported devices, camera permission denial, offline/model load failures, app backgrounding, API timeouts and upgrades.</li>
+<li><strong>Release and support:</strong> finalize India-specific legal/privacy review, public support contact, retention/deletion operations, accessibility checks and beta incident process.</li>
+</ol>
+<p>The current delivery plan is in <code>docs/PHASE_PLAN.md</code>. Change order only when user research or test evidence supports it.</p>
+</section>
+
+<section id="glossary">
+<h2>13. Glossary and key files</h2>
+<div class="table-wrap"><table><thead><tr><th>Term</th><th>Meaning here</th></tr></thead><tbody>
+<tr><td>Pose landmark</td><td>Estimated body joint/keypoint location returned by pose perception, often with visibility/confidence information.</td></tr>
+<tr><td>Analyzer</td><td>Exercise-specific deterministic logic that interprets landmarks over time to estimate phase, reps and form cues.</td></tr>
+<tr><td>Workout nonce</td><td>Short-lived, single-use server-issued value checked when submitting a workout. It is not proof of movement accuracy.</td></tr>
+<tr><td>ROM</td><td>Range of motion; a measurement that requires camera/geometry validation and must not be presented as clinical truth without evidence.</td></tr>
+<tr><td>Consent-based access</td><td>Patient explicitly approves a clinician connection; server authorization checks access rather than trusting UI state.</td></tr>
+<tr><td>Capacitor</td><td>Packaging layer that runs the shared web experience inside native Android shell capabilities.</td></tr>
+</tbody></table></div>
+<ul>
+<li>Current architecture: <code>docs/ARCHITECTURE.md</code></li><li>AI design/status: <code>docs/AI_ARCHITECTURE.md</code></li><li>Product roadmap: <code>docs/PHASE_PLAN.md</code></li><li>Safety: <code>docs/SAFETY.md</code></li><li>Privacy: <code>docs/PRIVACY_POLICY.md</code></li><li>Rehabilitation boundary: <code>docs/PHYSIOTHERAPY_MODE.md</code></li><li>Movement benchmark: <code>benchmark/PROTOCOL.md</code></li><li>Developer setup/deploy: <code>README.md</code></li>
+</ul>
+<div class="note"><strong>Keep this guide current:</strong> update feature status and commands when routes, analyzers, storage behavior or deployment configuration change. Recheck all truthfulness and privacy statements against code before a public release.</div>
+</section>
+<div class="footer">BlockFit Project Field Guide · Internal working reference · October 5, 2026 · Not medical, legal, or clinical advice</div>
+</body>
+</html>

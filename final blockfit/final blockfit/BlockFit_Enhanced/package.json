@@ -1,0 +1,17 @@
+{
+  "name": "blockfit",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev:web": "npm run dev --prefix web",
+    "dev:api": "npm run dev --prefix backend",
+    "benchmark:test": "node benchmark/evaluate.test.mjs",
+    "benchmark:run": "node benchmark/evaluate.mjs",
+    "build:web": "npm run build --prefix web",
+    "build": "npm ci --prefix backend && npm ci --prefix web && npm run build:web",
+    "apk:build": "node mobile/build-apk.mjs",
+    "apk:open": "npm run open --prefix mobile",
+    "start": "node backend/src/server.js"
+  }
+}

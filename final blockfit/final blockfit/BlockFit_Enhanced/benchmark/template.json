@@ -1,0 +1,87 @@
+{
+  "manifest": {
+    "datasetVersion": "pilot-v1",
+    "modelVersion": "record-the-pose-model-version",
+    "counterVersion": "rep-state-machine-v1",
+    "repDefinitionVersion": "1.0.0",
+    "mediaPipeModelVersion": "record-the-mediapipe-model-version",
+    "peakToleranceFrames": 5,
+    "evaluatedAt": "2026-09-19"
+  },
+  "labels": [
+    {
+      "clipId": "clip-001",
+      "participantId": "participant-001",
+      "exercise": "squat",
+      "labelType": "labeler",
+      "labeler": "labeler-a",
+      "scorable": true,
+      "repCount": 0,
+      "repPeaks": [],
+      "formScore": null,
+      "formIssues": [],
+      "notes": ""
+    },
+    {
+      "clipId": "clip-001",
+      "participantId": "participant-001",
+      "exercise": "squat",
+      "labelType": "labeler",
+      "labeler": "labeler-b",
+      "scorable": true,
+      "repCount": 0,
+      "repPeaks": [],
+      "formScore": null,
+      "formIssues": [],
+      "notes": ""
+    },
+    {
+      "clipId": "clip-001",
+      "participantId": "participant-001",
+      "exercise": "squat",
+      "labelType": "coach",
+      "labeler": "coach-a",
+      "scorable": true,
+      "repCount": 0,
+      "repPeaks": [],
+      "formScore": 0,
+      "formIssues": [],
+      "notes": ""
+    },
+    {
+      "clipId": "clip-001",
+      "participantId": "participant-001",
+      "exercise": "squat",
+      "labelType": "coach",
+      "labeler": "coach-b",
+      "scorable": true,
+      "repCount": 0,
+      "repPeaks": [],
+      "formScore": 0,
+      "formIssues": [],
+      "notes": ""
+    }
+  ],
+  "reconciled": [
+    {
+      "clipId": "clip-001",
+      "participantId": "participant-001",
+      "exercise": "squat",
+      "scorable": true,
+      "repCount": 0,
+      "repPeaks": [],
+      "formScore": 0,
+      "formIssues": [],
+      "notes": ""
+    }
+  ],
+  "predictions": [
+    {
+      "clipId": "clip-001",
+      "exercise": "squat",
+      "repCount": 0,
+      "repPeaks": [],
+      "formScore": 0
+    }
+  ]
+}

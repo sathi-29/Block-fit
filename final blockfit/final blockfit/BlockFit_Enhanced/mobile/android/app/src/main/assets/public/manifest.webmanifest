@@ -1,0 +1,15 @@
+{
+  "name": "BlockFit",
+  "short_name": "BlockFit",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07191f",
+  "theme_color": "#07191f",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

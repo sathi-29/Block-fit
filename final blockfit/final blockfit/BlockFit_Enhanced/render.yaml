@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: blockfit
+    runtime: node
+    buildCommand: npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: blockfit-db
+          property: connectionString
+
+databases:
+  - name: blockfit-db
+    databaseName: blockfit
+    user: blockfit
